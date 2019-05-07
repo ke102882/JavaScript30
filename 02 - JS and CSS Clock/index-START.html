@@ -62,13 +62,64 @@
       background: black;
       position: absolute;
       top: 50%;
+      left: 50%;
+      transform-origin: left;
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
     }
-
+    .hour-hand{
+      width: 30%;
+    }
+    .min-hand{
+      height: 4px;
+    }
+    .second-hand{
+      height: 2px;
+    }
   </style>
 
   <script>
+    let hour = document.querySelector('.hour-hand');
+    let min = document.querySelector('.min-hand');
+    let second = document.querySelector('.second-hand');
+    let data;
+   
+    function changClock() {
+      let secondTime = date.getSeconds();
+      let minTime = date.getMinutes();
+      let hourTime = date.getHours();
+      // second-hand 秒數
+      // 每1秒，動6deg，360度/60次跑一圈
+      const secondDeg = ( 360 / 60 ) * secondTime;
+      second.style.transform = `rotate(${secondDeg + 90}deg)`;
+      // min-hand 分鐘
+      // 每1秒，動0.1deg
+      // 一圈360度
+      // 動60次跑1圈
+      // 動1次要60秒
+      const minDeg = ( 360 / 60 / 60 ) * secondTime + (360 / 60) * minTime;
+      console.log(minDeg)
+      min.style.transform = `rotate(${minDeg + 90}deg)`;
+      // hour-hand 小時
+      // 每60秒，動0.5deg
+      // 一圈360度
+      // 12次跑一圈
+      // 60分鐘會動60次(每分鐘動一次)
+      // const hourDeg = ( 360 / 12 / 60 ) * secondTime * minTime * hourTime + 90;
+      // hour.style.transform = `rotate(${hourDeg}deg)`;
+    }
+
+    function time() {
+      date = new Date();
+      changClock();
+      setTime();
+    }
+    function setTime() {
+      setTimeout(time, 1000);
+    }
 
 
+    window.addEventListener('load', time);
   </script>
 </body>
 </html>
