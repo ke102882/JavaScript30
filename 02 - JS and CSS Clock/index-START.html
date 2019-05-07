@@ -5,17 +5,13 @@
   <title>JS + CSS Clock</title>
 </head>
 <body>
-
-
     <div class="clock">
       <div class="clock-face">
-        <div class="hand hour-hand"></div>
-        <div class="hand min-hand"></div>
         <div class="hand second-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand hour-hand"></div>
       </div>
     </div>
-
-
   <style>
     html {
       background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
@@ -24,7 +20,6 @@
       text-align: center;
       font-size: 10px;
     }
-
     body {
       margin: 0;
       font-size: 2rem;
@@ -33,7 +28,6 @@
       min-height: 100vh;
       align-items: center;
     }
-
     .clock {
       width: 30rem;
       height: 30rem;
@@ -48,78 +42,134 @@
         inset 0 0 10px black,
         0 0 10px rgba(0,0,0,0.2);
     }
-
     .clock-face {
       position: relative;
       width: 100%;
       height: 100%;
       transform: translateY(-3px); /* account for the height of the clock hands */
     }
-
+    .clock-face::after {
+      content: '';
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      background-color: gold;
+      border-radius: 50%;
+    }
     .hand {
-      width: 50%;
-      height: 6px;
+      width: 10px;
+      height: 50%;
+      position: absolute;
+      left: 50%;
+      margin-left: -5px;
+      transform-origin: center bottom;
+      /* transition: all 1s linear; */
+      border-radius: 10px;
+    }
+    .hour-hand {
+      background-color: #EFEFEF;
+      height: 30%;
+      top: 20%;
+    }
+    .min-hand {
+      background: #222;
+    }
+    .second-hand {
+      background-color: #f00;
+    }
+    /* 方法二 */
+    /* .hand {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+      transition: all 0.05s;
+    } 
+     .hour-hand::after{
+      content: '';
       background: black;
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform-origin: left;
-      transition: all 0.05s;
-      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+      width: 1px;
+      height: 30%;
+      transform: translateX(-50%);
     }
-    .hour-hand{
-      width: 30%;
+    .min-hand::after{
+      content: '';
+      background: black;
+      position: absolute;
+      width: 10px;
+      height: 50%;
+      transform: translateX(-50%);
     }
-    .min-hand{
-      height: 4px;
-    }
-    .second-hand{
-      height: 2px;
-    }
+    .second-hand::after{
+      content: '';
+      background: #f00;
+      position: absolute;
+      width: 10px;
+      height: 50%;
+      transform: translateX(-50%);
+    } */
   </style>
 
   <script>
-    let hour = document.querySelector('.hour-hand');
-    let min = document.querySelector('.min-hand');
-    let second = document.querySelector('.second-hand');
-    let data;
-   
-    function changClock() {
-      let secondTime = date.getSeconds();
-      let minTime = date.getMinutes();
-      let hourTime = date.getHours();
-      // second-hand 秒數
-      // 每1秒，動6deg，360度/60次跑一圈
-      const secondDeg = ( 360 / 60 ) * secondTime;
-      second.style.transform = `rotate(${secondDeg + 90}deg)`;
-      // min-hand 分鐘
-      // 每1秒，動0.1deg
-      // 一圈360度
-      // 動60次跑1圈
-      // 動1次要60秒
-      const minDeg = ( 360 / 60 / 60 ) * secondTime + (360 / 60) * minTime;
-      console.log(minDeg)
-      min.style.transform = `rotate(${minDeg + 90}deg)`;
-      // hour-hand 小時
-      // 每60秒，動0.5deg
-      // 一圈360度
-      // 12次跑一圈
-      // 60分鐘會動60次(每分鐘動一次)
-      // const hourDeg = ( 360 / 12 / 60 ) * secondTime * minTime * hourTime + 90;
-      // hour.style.transform = `rotate(${hourDeg}deg)`;
-    }
+    ;(function () {
+      const hour = document.querySelector('.hour-hand');
+      const min = document.querySelector('.min-hand');
+      const second = document.querySelector('.second-hand');
 
-    function time() {
-      date = new Date();
+      function changClock() {
+        const date = new Date();
+        const secondTime = date.getSeconds();
+        const minTime = date.getMinutes();
+        const hourTime = date.getHours();
+        /*
+        **second-hand 秒數
+        **一圈有360，跑一圈要60次，算出每次跑幾度，再*次數，得到現在要有的角度。
+        */
+        const secondDeg = (360 / 60) * secondTime;
+        second.style.transform = `rotate(${secondDeg}deg)`;
+        /*
+        **min-hand 分鐘
+        **一圈360度，跑一圈要60次，每次要60秒
+        **算出每秒跑幾度，再*秒，得到每秒的角度
+        **算出每分鐘跑幾度，再*分鐘，得到每分鐘的角度
+        **以完成一圈的角度。
+        */
+        const minDeg = (360 / 60 / 60  * secondTime) + (360 / 60 * minTime);
+        min.style.transform = `rotate(${minDeg}deg)`;
+        /*
+        **hour-hand 小時
+        **一圈360度，跑一圈要12次，每次要60分鐘
+        **算出每分鐘跑幾度，再*分鐘，得到每分鐘的角度
+        **算出每小時跑幾度，再*小時，得到每小時要跑幾度
+        **以完成一圈的角度。
+        */
+        const hourDeg = (360 / 12 / 60 * minTime) + (360 / 12 * hourTime);
+        hour.style.transform = `rotate(${hourDeg}deg)`;
+      }
       changClock();
-      setTime();
-    }
-    function setTime() {
-      setTimeout(time, 1000);
-    }
+      // 方法一
+      // setInterval(changClock, 1000);
 
+      // 方法二
+      // function setTime() { 
+      //   changClock();
+      //   setTimeout(setTime, 1000); 
+      // }
+      // setTime();
 
-    window.addEventListener('load', time);
+      // 方法三
+      function animationHandler() {
+        changClock();
+        window.requestAnimationFrame(animationHandler);
+      }
+      window.requestAnimationFrame(animationHandler);
+    })()
   </script>
 </body>
 </html>
