@@ -58,9 +58,48 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  function runAudio(e) {
+    // 抓取對象
+    let audio = document.querySelector(`audio[data-key='${e.keyCode}']`);
+    let key = document.querySelector(`div[data-key='${e.keyCode}']`);
+    // 不存在就返回
+    if (!audio) { return; }
+    // 加入class樣式
+    key.classList.add('playing');
+    // audi歸零(準備重播用)
+    audio.currentTime = 0;
+    // 播放
+    audio.play();
+  }
+  function removeStyle(e){
+    e.target.classList.remove('playing');
+  }
 
+  // 方法一
+  // __proto__: HTMLCollection
+  // Object array對象，可以使用for of
+  // 操作起來好像這個比較快??? 不過這是小數據，當大數據時不知道誰比較快
+  /*
+  */
+  let keys = document.getElementsByClassName('key');
+  for (const key of keys) {
+    key.addEventListener('transitionend', removeStyle);
+  }
+  console.log('1',keys);
+  /*
+  */
+  
+  // 方法二
+  //__proto__: Array
+  // array陣列方法forEach
+  /*
+    keys = Array.from(document.querySelectorAll('.key'));
+    console.log('2',keys);
+    keys.forEach(key => key.addEventListener('transitionend', removeStyle));
+  */
+
+  window.addEventListener('keydown', runAudio);
 </script>
-
 
 </body>
 </html>
