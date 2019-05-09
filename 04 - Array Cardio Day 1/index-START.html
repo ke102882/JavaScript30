@@ -31,29 +31,72 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    // 過濾陣列，只要是true就回傳
+    const fifteen = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year < 1600));
+    console.log(fifteen)
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    // 整理陣列，return 整理過後的陣列。
+    // 至於forErch，這不會回傳陣列。
+    const map = inventors.map(inventor => inventor.first + ' ' + inventor.last);
+    console.log(map)
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    // 排序
+    const sort1 = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+    const sort2 = inventors.sort((a, b) => a.year - b.year1);
+    console.log(sort1);
+    console.log(sort2);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    // 第一個參數放fn(x,item)，第二個參數放x的初始值
+    const totalYears = inventors.reduce((total, inventor) => {
+      console.log('==============',total)
+      return total + (inventor.passed - inventor.year);
+    }, 0);
 
+    console.log(totalYears);
     // 5. Sort the inventors by years lived
-
+    const oldest = inventors.sort(function(a, b) {
+      const lastInventor = a.passed - a.year;
+      const nextInventor = b.passed - b.year;
+      return lastInventor > nextInventor ? -1 : 1;
+    });
+    console.table(oldest);
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // let arry = [];
+    // document.querySelectorAll('.mw-category-group li a').forEach((item)=>{
+    //   arry.push(item.title)
+    // });
+    // let newArry = arry.filter((item)=> title.indexOf('de') !== -1);
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
-
+    // 排序 字母
+    const alpha = people.sort((lastOne, nextOne) => {
+      const [aLast, aFirst] = lastOne.split(', ');
+      const [bLast, bFirst] = nextOne.split(', ');
+      return aLast > bLast ? 1 : -1;
+    });
+    console.log(alpha);
     // 8. Reduce Exercise
     // Sum up the instances of each of these
+    // 初始物件範例
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const transportation = data.reduce(function(obj, item) {
+      if (!obj[item]) {
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    }, {});
 
+    console.log(transportation);
   </script>
 </body>
 </html>
