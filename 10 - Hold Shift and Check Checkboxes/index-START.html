@@ -56,6 +56,7 @@
    When a user clicks a checkbox, holds Shift, and then clicks another checkbox a few rows down, all the checkboxes inbetween those two checkboxes should be checked.
 
   -->
+  <h1>模擬window選資料夾的樣子</h1>
   <div class="inbox">
     <div class="item">
       <input type="checkbox">
@@ -96,6 +97,44 @@
   </div>
 
 <script>
+  const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+  const arry = Array.from(checkboxes)
+  let lastChecked;
+
+  function handleCheck(e) {
+
+    console.time('fetching data'); // 開始計時
+    let inBetween = false;
+    if (e.shiftKey) {
+      let start = 0;
+      let end = 0;
+      let newArray = []
+
+      start = arry.findIndex((item) =>  item === lastChecked );
+      end = arry.findIndex((item) =>  item === this );
+      if (start > end) {
+        const box = start;
+        start = end;
+        end = box;
+      }
+      newArray = arry.slice(start, end + 1);
+      checkboxes.forEach((item)=>{
+        item.checked = false;
+        // console.log('checkboxes====',item.checked);
+      })
+      newArray.forEach((item)=>{
+        item.checked = true;
+        // console.log('newArray====',item.checked);
+      })
+      console.timeEnd('fetching data'); //結束計時
+      return;
+    }
+    lastChecked = this;
+    // console.log('lastChecked',lastChecked)
+    console.timeEnd('fetching data'); //結束計時
+  }
+
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
 </script>
 </body>
 </html>
