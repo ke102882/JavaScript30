@@ -5,7 +5,7 @@
   <title>Console Tricks!</title>
 </head>
 <body>
-
+  log / error / warn / info 輸出一樣，差別在於樣式，且各家瀏覽器出現的樣式不一樣。
   <p onClick="makeGreen()">×BREAK×DOWN×</p>
 
   <script>
@@ -16,31 +16,66 @@
       p.style.color = '#BADA55';
       p.style.fontSize = '50px';
     }
-
+    const array = [1,2,3,4,5]
+    const obj = {
+      a: 1,
+      b: 2,
+      c: 3
+    }
     // Regular
-
+    console.log('log 普通性信息')
+    console.log('log',array)
+    console.log('log',obj)
     // Interpolated
-
+    console.log('lo%s', 'g')
     // Styled
-
+    console.log('%clog', 'font-size:50px; background:red; text-shadow: 10px 10px 0 blue')
     // warning!
-
+    console.warn('warn');
     // Error :|
+    console.error('Error');
 
     // Info
-
+    console.info('info 提示性信息');
+    console.info('info 提示性信息',array);
+    console.info('info 提示性信息',obj);
     // Testing
-
+    console.assert(false, 'That is false!');
+    console.assert(true, 'That is true!');
     // clearing
-
+    console.clear();
     // Viewing DOM Elements
+    const p = document.querySelector('p');
+    console.log('log', p);
+    console.dir(p); // ps.不能串接
 
     // Grouping together
-
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    });
     // counting
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Steve');
+    // timing 起始結束的名字要取一樣
+    console.time('fetching data'); // 開始計時
+    console.timeEnd('fetching data'); //結束計時
 
-    // timing
-
+    // table
+    console.table(dogs);
   </script>
 </body>
 </html>
