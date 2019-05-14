@@ -26,16 +26,42 @@
 
     // Some and Every Checks
     // Array.prototype.some() // is at least one person 19 or older?
+    const someDome = people.some((item)=>{
+      return ( ((new Date).getFullYear())  - item.year ) >= 19;
+    })
+    console.log(someDome);
     // Array.prototype.every() // is everyone 19 or older?
+    const everyDome = people.every((item)=>{
+      return ( ((new Date).getFullYear())  - item.year ) >= 19;
+    })
+    console.log(everyDome);
 
     // Array.prototype.find()
     // Find is like filter, but instead returns just the one you are looking for
     // find the comment with the ID of 823423
-
+    const findDome = comments.find((item)=>{
+      return item.id === 823423;
+    })
+    console.log(findDome);
     // Array.prototype.findIndex()
     // Find the comment with this ID
     // delete the comment with the ID of 823423
+    const findIndexDome = comments.findIndex((item)=>{
+      return item.id === 823423;
+    })
+    console.log(findIndexDome);
 
+    // slice(start,end) 返回新陣列
+    // start開始索引值
+    // end結束索引值
+    // array = ['a', 'b', 'c', 'd']
+    // const dome = array.slice(0,2); // ['a', 'b']
+    // 從[0]開始，碰到[2]就結束，所以可以拿到[0][1]
+    const newComments = [
+      ...comments.slice(0, findIndexDome),
+      ...comments.slice(findIndexDome + 1)
+    ];
+    console.log(newComments)
   </script>
 </body>
 </html>
