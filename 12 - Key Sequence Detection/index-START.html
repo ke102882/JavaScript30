@@ -7,6 +7,32 @@
 </head>
 <body>
 <script>
+  const keyArray = [];
+  const keyWord = 'gene';
+
+  function setKeyCode(e) {
+    keyArray.push(e.key)
+
+    console.log(`pressed.splice(${0},${keyArray.length - keyWord.length})`)
+
+    // if (keyArray.length > keyWord.length) {
+    //   keyArray.splice(0,1)
+    // }
+    // if (keyArray.join('').includes(keyWord)) {
+    //   console.log('good!!');
+    //   cornify_add();
+    // }
+    keyArray.splice(0, keyArray.length - keyWord.length);
+    if (keyArray.join('').includes(keyWord)) {
+      console.log('good!!');
+      cornify_add();
+    }
+
+    console.log(keyArray)
+
+  }
+
+  window.addEventListener('keyup', setKeyCode)
 </script>
 </body>
 </html>
