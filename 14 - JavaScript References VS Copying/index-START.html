@@ -8,18 +8,33 @@
 
   <script>
     // start with strings, numbers and booleans
+    var strA = 'dog';
+    var strB = strA;
+    console.log('strA: %s,\nstrB: %s',strA, strB,'\n===1');
+    strA = 'cat';
+    strB = 'cow';
+    console.log('strA: %s,\nstrB: %s',strA, strB,'\n===2');
 
+    var numA =  100;
+    var numB = numA;
+    console.log('numA: %s,\nnumB: %s',numA, numB,'\n===3');
+    numA = 200;
+    numB = 300;
+    console.log('numA: %s,\nnumB: %s',numA, numB,'\n===4');
     // Let's say we have an array
-    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
-
+    const playersA = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+    
     // and we want to make a copy of it.
-
+    let playersB = playersA;
     // You might think we can just do something like this:
-
+    console.log(`playersA: ${playersA}\nplayersB: ${playersB}\n===5`)
+    playersB[0] = ['Hi'];
+    playersA[1] = ['Peter'];
     // however what happens when we update that array?
-
+    console.log(`playersA: ${playersA}\nplayersB: ${playersB}\n===6`)
     // now here is the problem!
-
+    playersB = ['what'];
+    console.log(`playersA: ${playersA}\nplayersB: ${playersB}\n===7`)
     // oh no - we have edited the original array too!
 
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
@@ -29,26 +44,88 @@
     // one way
 
     // or create a new array and concat the old one in
-
+    let playersC = playersA.slice();
+    playersC[0] = ['C'];
+    console.log(`playersA: ${playersA}\nplayersC: ${playersC}\n===8`)
+    
+    let playersD = playersA.map(item => item);
+    playersD[0] = ['D'];
+    console.log(`playersA: ${playersA}\nplayersD: ${playersD}\n===9`)
+   
+    let playersE = Array.from(playersA);
+    playersE[0] = ['E'];
+    console.log(`playersA: ${playersA}\nplayersE: ${playersE}\n===10`)
+   
     // or use the new ES6 Spread
-
+    let playersF = [...playersA];
+    playersF[0] = ['F'];
+    console.log(`playersA: ${playersA}\nplayersF: ${playersF}\n===11`)
     // now when we update it, the original one isn't changed
 
     // The same thing goes for objects, let's say we have a person object
 
     // with Objects
-    const person = {
+    const personA = {
       name: 'Wes Bos',
       age: 80
     };
 
     // and think we make a copy:
-
+    let personB = personA;
     // how do we take a copy instead?
+    personB.name = 'K'
+    console.log('personA',personA)
+    console.log('personB',personB, '\n===========12')
 
     // We will hopefully soon see the object ...spread
+    let personC = {...personA};
+    personC.name = 'G'
+    console.log('personA',personA)
+    console.log('personC',personC, '\n===========13')
+
+    const warnDemo = {
+      name: 'Ge',
+      age: 20,
+      about: {
+        family: 'secret',
+        isSingle: 'secret',
+      }
+    }
+    let copyDemoA = {...warnDemo};
+    let copyDemoB = Object.assign({},warnDemo);
+    console.warn('warnDemo',warnDemo);
+    console.warn('copyDemoA',copyDemoA);
+    console.warn('copyDemoB',copyDemoB,'\n===========14');
+    
+    copyDemoA.about.family = 'copyDemoA';
+    copyDemoA.name = 'A';
+
+    copyDemoB.about.isSingle = 'copyDemoB';
+    copyDemoB.name = 'B';
+    console.warn('warnDemo',warnDemo);
+    console.warn('copyDemoA',copyDemoA);
+    console.warn('copyDemoB',copyDemoB,'\n===========15');
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+    //Array
+    var arrA = ['a', 'b'];
+    var arrB = JSON.parse(JSON.stringify(arrA));
+    console.log('arrA',arrA);
+    console.log('arrB',arrB, '\n===========16');
+    arrB[0] = 'A';
+    console.log('arrA',arrA);
+    console.log('arrB',arrB, '\n===========17');
+
+    //Object
+    var objA = { a: 1, b: 2 };
+    var objB = JSON.parse(JSON.stringify(objA));
+    console.log('objA',objA);
+    console.log('objB',objB, '\n===========18');
+    objB.b = 3;
+    console.log('objA',objA);
+    console.log('objB',objB, '\n===========19');
+
 
   </script>
 
