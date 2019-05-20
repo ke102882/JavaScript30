@@ -28,7 +28,65 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  const items = JSON.parse(localStorage.getItem('text')) || [];
+  let index = 0;
+
+  function addItem(e) {
+    e.preventDefault();
+    const text = (this.querySelector('[name=item]'));
+
+    if (text.value) {
+      const obj = {
+        text: text.value,
+        done: false,
+      }
+      items.push(obj);
+      localStorage.setItem('text',JSON.stringify(items));
+      // text.value = '';
+      appendHtml(obj);
+      this.reset();
+    }
+  }
+  function appendHtml(obj) {
+    const html = document.createElement('li');
+    const checkboxs = document.createElement('input');
+    const label = document.createElement('label');
+    // const div = document.createElement('div');
+
+    checkboxs.type = 'checkbox';
+    checkboxs.dataset.id = index;
+    checkboxs.id = 'item' + index;
+    checkboxs.checked = obj.done;
+
+    label.innerText = obj.text;
+    label.htmlFor = 'item' + index;
+
+    // div.classList.add('del-items');
+    // div.dataset.id = index;
+
+    html.append(checkboxs);
+    html.append(label);
+    // html.append(div);
+    itemsList.append(html);
+    index++;
+  }
+  function changeStart(e) {
+    const id = e.target.dataset.id;
+    if (e.target.matches('input')) {
+      items[id].done = !items[id].done;
+       localStorage.setItem('text',JSON.stringify(items));
+    }
+  }
+
+  if (localStorage.text) {
+    const child = itemsList.children[0];
+    itemsList.removeChild(child);
+    for (const item of items) {
+      appendHtml(item);
+    }
+  }
+  addItems.addEventListener('submit', addItem);
+  itemsList.addEventListener('click', changeStart);
 
 </script>
 
