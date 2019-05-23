@@ -182,6 +182,32 @@
     </li>
   </ul>
 <script>
+  const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
+  
+  // 獲得總秒數
+  const seconds = timeNodes
+    .map(node => node.dataset.time)
+    .map(timeCode => {
+      // 時與分拆開
+      const [mins, secs] = timeCode.split(':').map(parseFloat);
+      // 時換算成秒
+      return (mins * 60) + secs;
+    })
+    .reduce((total, vidSeconds) => {
+      return total + vidSeconds
+    });
+
+    let secondsLeft = seconds;
+    // 轉成小時
+    const hours = Math.floor(secondsLeft / 3600);
+    // 未滿一小時的秒數
+    secondsLeft = secondsLeft % 3600;
+    // 轉成分鐘
+    const mins = Math.floor(secondsLeft / 60);
+    // 未滿一分鐘的秒數
+    secondsLeft = secondsLeft % 60;
+
+    console.log(hours, mins, secondsLeft);
 </script>
 </body>
 </html>
