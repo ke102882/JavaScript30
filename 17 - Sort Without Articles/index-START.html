@@ -47,6 +47,20 @@
 
 <script>
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+// 處理字串，把a、the、an的詞清除並去頭尾空白
+function strip(bandName) {
+  return bandName.replace(/^(a |the |an )/i, '').trim();
+}
+// 比較字串 1往後 -1往前 0不動
+const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1);
+// 組成li，加上join轉字串。
+const array = sortedBands
+    .map(band => `<li>${band}</li>`)
+    .join('')
+console.log(array);
+console.log(sortedBands);
+document.querySelector('#bands').innerHTML = array;
+
 
 
 </script>
