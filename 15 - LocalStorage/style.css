@@ -77,3 +77,25 @@ h2 {
   outline: 0;
   border: 1px solid rgba(0,0,0,0.1);
 }
+
+.del-items {
+  width: 60px;
+  position: relative;
+}
+.del-items::after,
+.del-items::before{
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 1px;
+  background-color: #000;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+}
+.del-items::after {
+  transform: rotate(45deg);
+}
+.del-items::before {
+  transform: rotate(-45deg);
+}
