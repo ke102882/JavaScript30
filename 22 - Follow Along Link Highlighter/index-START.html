@@ -9,24 +9,45 @@
 
     <nav>
       <ul class="menu">
-        <li><a href="">Home</a></li>
-        <li><a href="">Order Status</a></li>
-        <li><a href="">Tweets</a></li>
-        <li><a href="">Read Our History</a></li>
-        <li><a href="">Contact Us</a></li>
+        <li><a href="javascript:;">Home</a></li>
+        <li><a href="javascript:;">Order Status</a></li>
+        <li><a href="javascript:;">Tweets</a></li>
+        <li><a href="javascript:;">Read Our History</a></li>
+        <li><a href="javascript:;">Contact Us</a></li>
       </ul>
     </nav>
 
     <div class="wrapper">
-      <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit. Est <a href="">explicabo</a> unde natus necessitatibus esse obcaecati distinctio, aut itaque, qui vitae!</p>
-      <p>Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque praesentium laborum pariatur earum <a href="">quaerat</a> cupiditate consequuntur facilis ullam dignissimos, aperiam quam veniam.</p>
-      <p>Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime <a href="">corrupti</a> possimus <a href="">veritatis</a> ipsum fugit recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.</p>
-      <p>Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni odit <a href="">totam</a> ut consequatur eveniet sunt quam provident sapiente dicta neque quod.</p>
-      <p>Aliquam <a href="">dicta</a> sequi culpa fugiat <a href="">consequuntur</a> pariatur optio ad minima, maxime <a href="">odio</a>, distinctio magni impedit tempore enim repellendus <a href="">repudiandae</a> quas!</p>
+      <p>Lorem ipsum dolor sit amet, <a href="javascript:;">consectetur</a> adipisicing elit. Est <a href="javascript:;">explicabo</a> unde natus necessitatibus esse obcaecati distinctio, aut itaque, qui vitae!</p>
+      <p>Aspernatur sapiente quae sint <a href="javascript:;">soluta</a> modi, atque praesentium laborum pariatur earum <a href="javascript:;">quaerat</a> cupiditate consequuntur facilis ullam dignissimos, aperiam quam veniam.</p>
+      <p>Cum ipsam quod, incidunt sit ex <a href="javascript:;">tempore</a> placeat maxime <a href="javascript:;">corrupti</a> possimus <a href="javascript:;">veritatis</a> ipsum fugit recusandae est doloremque? Hic, <a href="javascript:;">quibusdam</a>, nulla.</p>
+      <p>Esse quibusdam, ad, ducimus cupiditate <a href="javascript:;">nulla</a>, quae magni odit <a href="javascript:;">totam</a> ut consequatur eveniet sunt quam provident sapiente dicta neque quod.</p>
+      <p>Aliquam <a href="javascript:;">dicta</a> sequi culpa fugiat <a href="javascript:;">consequuntur</a> pariatur optio ad minima, maxime <a href="javascript:;">odio</a>, distinctio magni impedit tempore enim repellendus <a href="javascript:;">repudiandae</a> quas!</p>
     </div>
 
   <script>
     // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+
+    const tags = document.querySelectorAll('a');
+    const highlight = document.createElement('span');
+    highlight.classList.add('highlight');
+    document.body.appendChild(highlight);
+
+    function changeHeightLine(e) {
+      const { left, top, height, width } = this.getBoundingClientRect();
+      highlight.style.left = left + window.scrollX + 'px';
+      highlight.style.top = top + window.scrollY + 'px';
+      highlight.style.height = height+ 'px';
+      highlight.style.width = width+ 'px';
+
+      // highlight.style.width = `${width}px`;
+      // highlight.style.height = `${height}px`;
+      // highlight.style.transform = `translate(${left + window.scrollX}px, ${top + window.scrollY}px)`;
+    }
+
+    tags.forEach((tag)=>{
+      tag.addEventListener('mouseenter', changeHeightLine);
+    })
   </script>
 </body>
 </html>
