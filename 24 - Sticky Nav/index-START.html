@@ -5,7 +5,7 @@
   <title>Sticky Nav</title>
   <link rel="stylesheet" href="style-START.css">
 </head>
-<body>
+<body id="body-main">
 
   <header>
     <h1>A story about getting lost.</h1>
@@ -54,7 +54,21 @@
   </div>
 
 <script>
+  const nav = document.getElementById('main');
+  const body = document.getElementById('body-main');
+  const navTop = nav.offsetTop;
 
+  function fixNav() {
+    if (window.scrollY >= navTop) {
+      // fixed不占空間，用padding推出原本的空間高;
+      document.body.style.paddingTop = nav.offsetHeight + 'px';
+      body.classList.add('fix');
+    } else {
+      body.classList.remove('fix');
+      document.body.style.paddingTop = 0;
+    }
+  }
+  window.addEventListener('scroll', fixNav);
 </script>
 
 </body>

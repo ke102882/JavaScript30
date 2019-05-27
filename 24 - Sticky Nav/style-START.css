@@ -13,7 +13,9 @@ body {
 *, *:before, *:after {
   box-sizing: inherit;
 }
-
+body.fix .site-wrap {
+  transform: scale(1);
+}
 .site-wrap {
   max-width: 700px;
   margin: 70px auto;
@@ -28,7 +30,7 @@ body {
 header {
   text-align: center;
   height: 50vh;
-  background: url(http://wes.io/iEgP/wow-so-deep.jpg) bottom center no-repeat;
+  background: url(http://unsplash.it/400/400) bottom center no-repeat;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -39,6 +41,11 @@ h1 {
   color: white;
   font-size: 7vw;
   text-shadow: 3px 4px 0 rgba(0,0,0,0.2);
+}
+
+body.fix nav {
+  position: fixed;
+  box-shadow: 0 5px 0 rgba(0,0,0,0.1);
 }
 
 nav {
@@ -64,9 +71,13 @@ nav li {
   justify-content: center;
   align-items: center;
 }
+body.fix li.logo {
+  width: auto;
+  flex: 2;
+}
 
 li.logo {
-  max-width: 0;
+  flex: 0;
   overflow: hidden;
   background: white;
   transition: all .5s;
