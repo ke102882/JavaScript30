@@ -42,7 +42,32 @@
 
 <button></button>
 <script>
+const divs = document.querySelectorAll('div');
+  const button = document.querySelector('button');
 
+  function logText(e) {
+    // 阻止冒泡，點到為止
+    e.stopPropagation(); // stop bubbling!
+
+    // capture is false
+    // console.log(this.classList.value); // three, two, one
+    // console.log(this); // three, two, one
+
+    // caputer is true
+    // console.log(this.classList.value); // one, two, three
+    // console.log(this); // one, two, three
+  }
+
+  divs.forEach(div => div.addEventListener('click', logText, {
+    capture: false, // true 從外到內，false從內到外，預設為false
+    once: true // true 只執行一次
+  }));
+
+  button.addEventListener('click', () => {
+    console.log('Click!!!');
+  }, {
+    once: true 
+  });
 </script>
 </body>
 </html>
