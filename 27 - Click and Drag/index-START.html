@@ -34,8 +34,35 @@
     <div class="item item25">25</div>
   </div>
 
-<script>
-</script>
+  <script>
+    const items = document.querySelector('.items');
+    let mousing = false;
+    let firstX = 0;
+
+    function recordCoordinate(event) {
+      firstX = event.clientX;
+      items.classList.add('active');
+      handlerSiwtch();
+    }
+
+    function move(event) {
+      if (!mousing) { return; }
+      const x = event.clientX;
+      const move = x - firstX;
+      firstX = x;
+      items.scrollLeft -= move * 1.5;
+    }
+
+    function handlerSiwtch(siwtch = true) {
+      mousing = siwtch;
+      !siwtch && items.classList.remove('active');
+    }
+
+    items.addEventListener('mousedown', recordCoordinate);
+    items.addEventListener('mousemove', move);
+    items.addEventListener('mouseleave', () => handlerSiwtch(false));
+    items.addEventListener('mouseup', ()=> handlerSiwtch(false));
+  </script>
 
   </body>
 </html>
