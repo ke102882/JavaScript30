@@ -15,6 +15,37 @@
   </div>
 
 <script>
+  (function() {
+    const speed = document.querySelector('.speed');
+    const speedBar = document.querySelector('.speed-bar');
+    const video = document.querySelector('.flex');
+    const created = {
+      value: 1,
+      max: 3,
+      min: 0.1,
+      step: 0.1
+    }
+    speedBar.style.height = created.value / created.max * 100 +'%';
+
+    function hanlderSpeedBar(e) {
+      /*
+      ** IE讀不到movementY
+      ** offsetY看起來跟movementY一樣，但MDN文檔表示該值尚在實驗階段
+      ** 所以 自己算
+      */
+      
+      // this指向呼叫的對象 speed
+      // let move = e.pageY - speed.offsetTop;
+
+      const move = e.pageY - this.offsetTop;
+      const percent = move / this.offsetHeight;
+      const rate = percent * (created.max - created.min) + created.min;
+      speedBar.style.height = Math.round(percent * 100) +'%';
+      speedBar.innerText = rate.toFixed(2) + '×';
+      video.playbackRate = rate;
+    }
+    speed.addEventListener('mousemove', hanlderSpeedBar);
+  })();
 </script>
 </body>
 </html>
