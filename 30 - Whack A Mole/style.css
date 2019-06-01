@@ -6,12 +6,12 @@ html {
 
 *, *:before, *:after {
   box-sizing: inherit;
+  font-family: '微軟正黑體', cursive;
 }
 
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Amatic SC', cursive;
 }
 
 h1 {
@@ -22,10 +22,9 @@ h1 {
 }
 
 .score {
+  font-size: 10rem;
   background: rgba(255,255,255,0.2);
   padding: 0 3rem;
-  line-height: 1;
-  border-radius: 1rem;
 }
 
 .game {
@@ -62,8 +61,31 @@ h1 {
   width: 100%;
   height: 100%;
   transition:all 0.4s;
+  cursor: url("iconup.cur") 32 32, pointer;
 }
-
+.mole:active {
+  cursor: url("iconDown.cur") 32 32, pointer;
+}
 .hole.up .mole {
   top: 0;
+}
+.title-wrap {
+  text-align: center;
+}
+.btn {
+  font-size: 32px;
+  margin: 20px 0;
+  padding: 20px 40px;
+  border-radius: 4px;
+  background-color: #000;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+}
+.game-time-wrap {
+  font-size: 36px;
+}
+.game-time {
+  padding: 0 10px;
+  font-size: 60px;
 }
